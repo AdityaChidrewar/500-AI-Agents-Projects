@@ -17,7 +17,9 @@ from typing import Annotated, Literal, TypedDict
 from dotenv import load_dotenv
 from langchain_community.vectorstores import FAISS
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_openai import ChatOpenAI
+from langchain_core.embeddings import Embeddings
+from google import genai
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langgraph.graph import END, StateGraph
 from langgraph.graph.message import add_messages
@@ -38,6 +40,21 @@ SAMPLE_KB = [
 ESCALATION_KEYWORDS = ["refund", "lawsuit", "furious", "fraud", "broken", "data loss", "cancel account", "charge", "billing error"]
 
 
+class GeminiEmbeddings(Embeddings):
+    def __init__(self, api_key):
+        self.client = genai.Client(api_key=api_key)
+
+    def embed_documents(self, texts):
+        return [self.embed_query(text) for text in texts]
+
+    def embed_query(self, text):
+        response = self.client.models.embed_content(
+            model="gemini-embedding-001",
+            contents=text
+        )
+        return response.embeddings[0].values
+
+
 class SupportState(TypedDict):
     messages: Annotated[list, add_messages]
     user_input: str
@@ -52,7 +69,9 @@ def retrieve_context(state: SupportState) -> SupportState:
         texts = getattr(retrieve_context, "kb_texts", SAMPLE_KB)
         splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=20)
         docs_split = splitter.create_documents(texts)
-        embeddings = OpenAIEmbeddings()
+        embeddings = GeminiEmbeddings(
+        os.getenv("GEMINI_API_KEY")
+        )  
         retrieve_context.vectorstore = FAISS.from_documents(docs_split, embeddings)
 
     docs = retrieve_context.vectorstore.similarity_search(query, k=3)
@@ -67,7 +86,12 @@ def check_escalation(state: SupportState) -> SupportState:
 
 
 def generate_response(state: SupportState) -> SupportState:
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
+    llm = ChatOpenAI(
+    model="gemini-3.1-flash-lite-preview",
+    temperature=0.2,
+    api_key=os.getenv("GEMINI_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    )
     conversation = state["messages"][:-1]  # exclude latest user msg
 
     if state.get("escalate"):
