@@ -5,8 +5,9 @@ from datetime import datetime, timedelta, timezone
 import bcrypt
 import jwt
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from langchain_core.messages import HumanMessage
 from pydantic import BaseModel, Field, field_validator
 from pymongo import MongoClient
@@ -295,6 +296,47 @@ def login(payload: LoginRequest) -> LoginResponse:
 
 
 # ---------------------------------------------------------------------------
+# Auth dependency (used to protect routes with a valid JWT)
+# ---------------------------------------------------------------------------
+# auto_error=False so a missing header lands here as `None` and we can return
+# 401 ourselves - FastAPI's default HTTPBearer raises 403 on a missing
+# header, which isn't what was asked for (401 for missing/invalid/expired).
+security = HTTPBearer(auto_error=False)
+
+
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials | None = Depends(security),
+) -> dict:
+    if credentials is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing authentication token.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    try:
+        payload = jwt.decode(
+            credentials.credentials,
+            JWT_SECRET,
+            algorithms=["HS256"],
+        )
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token has expired.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except jwt.InvalidTokenError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication token.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    return payload
+
+
+# ---------------------------------------------------------------------------
 # Chat
 # ---------------------------------------------------------------------------
 @app.post(
@@ -302,7 +344,10 @@ def login(payload: LoginRequest) -> LoginResponse:
     response_model=ChatResponse,
     status_code=status.HTTP_200_OK,
 )
-def chat(payload: ChatRequest) -> ChatResponse:
+def chat(
+    payload: ChatRequest,
+    current_user: dict = Depends(get_current_user),
+) -> ChatResponse:
 
     state = {
         "messages": [
