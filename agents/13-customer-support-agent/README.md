@@ -444,39 +444,34 @@ The complete application workflow is:
                                         v
                                     Resolved
 14. Screenshots
+
 Customer Chat
 
 The customer interface provides:
 
-AI customer support chat
-Conversation history
-New conversation option
-Account information
-Support suggestions
-Formatted AI responses
+- AI customer support chat
+- Conversation history
+- New conversation option
+- Account information
+- Support suggestions
+- Formatted AI responses
 
-Add the customer chat screenshot below.
+![Customer Chat](screenshots/customer-chat.png)
 
-[Add Customer Chat Screenshot Here]
+
 Admin Dashboard
 
 The admin interface provides:
 
-Ticket statistics
-Ticket search and filtering
-Ticket details
-Ticket status management
+- Ticket statistics
+- Ticket search and filtering
+- Ticket details
+- Ticket status management
 
-Add the admin dashboard screenshot below.
+![Admin Dashboard](screenshots/admin-dashboard.png)
 
-[Add Admin Dashboard Screenshot Here]
-Mobile Interface
 
-The application is designed to provide a responsive experience across desktop and mobile screen sizes.
 
-Add the mobile screenshot below.
-
-[Add Mobile Screenshot Here]
 15. Testing
 
 The application was tested across the major customer, AI, ticket, authentication, security, and responsive UI workflows.
