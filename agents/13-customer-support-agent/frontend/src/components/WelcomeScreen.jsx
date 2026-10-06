@@ -37,13 +37,22 @@ function WelcomeScreen({ onSuggestionClick }) {
           <button
             key={suggestion.title}
             className="suggestion-card"
-            onClick={() => onSuggestionClick(suggestion.text)}
+            type="button"
+            onClick={() =>
+              onSuggestionClick(suggestion.text)
+            }
           >
-            <span className="suggestion-icon">{suggestion.icon}</span>
+            <span className="suggestion-icon">
+              {suggestion.icon}
+            </span>
 
             <span className="suggestion-content">
               <strong>{suggestion.title}</strong>
               <small>{suggestion.text}</small>
+            </span>
+
+            <span className="suggestion-arrow">
+              →
             </span>
           </button>
         ))}

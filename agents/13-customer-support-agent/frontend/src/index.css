@@ -646,3 +646,1135 @@ textarea {
     font-size: 26px;
   }
 }
+/* =====================================================
+   AUTHENTICATION SCREEN
+   ===================================================== */
+
+.auth-screen {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #f5f7fb;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.auth-brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.auth-card h1 {
+  margin: 0 0 24px;
+  font-size: 30px;
+  color: #111827;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.auth-field span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.auth-field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  background: #ffffff;
+}
+
+.auth-field input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-submit:hover {
+  background: #1d4ed8;
+}
+
+.auth-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  margin: 20px 0 0;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.auth-switch button {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #2563eb;
+  font-size: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-switch button:hover {
+  text-decoration: underline;
+}
+
+.auth-error-message,
+.auth-info-message,
+.auth-session-message {
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+
+.auth-error-message {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.auth-info-message {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.auth-session-message {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+@media (max-width: 480px) {
+  .auth-screen {
+    padding: 16px;
+  }
+
+  .auth-card {
+    padding: 24px;
+  }
+}
+
+
+/* =========================================================
+   CLOUDSYNC - SIDEBAR / MAIN CONTENT LAYOUT FIX
+   ========================================================= */
+
+.app-layout {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/*
+   The sidebar is fixed at approximately 320px.
+   The application content must leave space for it.
+*/
+.app-layout > .app {
+  margin-left: 320px;
+  min-height: 100vh;
+  width: calc(100% - 320px);
+}
+
+/* Admin dashboard */
+.app-layout > .admin-app {
+  margin-left: 320px;
+  min-height: 100vh;
+  width: calc(100% - 320px);
+}
+
+/*
+   Make sure the sidebar stays above the application content.
+*/
+.sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  z-index: 1000;
+}
+
+/*
+   Prevent dashboard/chat content from creating
+   an unnecessary horizontal scrollbar.
+*/
+.admin-app,
+.app {
+  max-width: none;
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .app-layout > .app,
+  .app-layout > .admin-app {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sidebar-wrapper {
+    width: 320px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .sidebar-wrapper.sidebar-open {
+    transform: translateX(0);
+  }
+}
+
+
+/* =========================================================
+   CLOUDSYNC AUTHENTICATION
+   Premium SaaS Login / Register UI
+   ========================================================= */
+
+.auth-screen {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  overflow: hidden;
+
+  padding: 32px;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(99, 102, 241, 0.10),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(79, 70, 229, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #f8fafc 0%,
+      #f1f5f9 50%,
+      #eef2ff 100%
+    );
+}
+
+
+/* Decorative background circles */
+
+.auth-screen::before {
+  content: "";
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  border-radius: 50%;
+
+  background: rgba(99, 102, 241, 0.06);
+
+  top: -180px;
+  left: -150px;
+
+  pointer-events: none;
+}
+
+
+.auth-screen::after {
+  content: "";
+  position: absolute;
+
+  width: 360px;
+  height: 360px;
+
+  border-radius: 50%;
+
+  background: rgba(79, 70, 229, 0.05);
+
+  right: -130px;
+  bottom: -160px;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   AUTH CARD
+   ========================================================= */
+
+.auth-card {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 450px;
+
+  padding: 38px 40px 34px;
+
+  background: rgba(255, 255, 255, 0.96);
+
+  border: 1px solid rgba(226, 232, 240, 0.95);
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 25px 60px rgba(15, 23, 42, 0.10),
+    0 8px 25px rgba(15, 23, 42, 0.05);
+
+  backdrop-filter: blur(16px);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.auth-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 30px 70px rgba(15, 23, 42, 0.12),
+    0 10px 30px rgba(79, 70, 229, 0.07);
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 34px;
+}
+
+
+/* CS logo */
+
+.auth-brand .sidebar-brand-mark {
+  width: 46px;
+  height: 46px;
+
+  min-width: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #4f46e5
+    );
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  letter-spacing: 0.02em;
+
+  box-shadow:
+    0 8px 20px rgba(79, 70, 229, 0.28);
+}
+
+
+/* Brand name */
+
+.auth-brand-name {
+  font-size: 18px;
+
+  font-weight: 750;
+
+  color: #0f172a;
+
+  letter-spacing: -0.02em;
+}
+
+
+/* =========================================================
+   LOGIN HEADING
+   ========================================================= */
+
+.auth-card h1 {
+  margin: 0 0 8px;
+
+  color: #0f172a;
+
+  font-size: 32px;
+
+  line-height: 1.15;
+
+  font-weight: 750;
+
+  letter-spacing: -0.035em;
+}
+
+
+/* Small subtitle below heading */
+
+.auth-card h1::after {
+  content: "Securely access your support workspace";
+
+  display: block;
+
+  margin-top: 10px;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  font-weight: 400;
+
+  letter-spacing: 0;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.auth-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+
+.auth-field span {
+  color: #334155;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.01em;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.auth-field input {
+  width: 100%;
+
+  height: 50px;
+
+  padding: 0 15px;
+
+  border: 1px solid #dbe2ea;
+
+  border-radius: 12px;
+
+  outline: none;
+
+  background: #f8fafc;
+
+  color: #0f172a;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.auth-field input::placeholder {
+  color: #94a3b8;
+}
+
+
+.auth-field input:hover {
+  border-color: #cbd5e1;
+
+  background: #ffffff;
+}
+
+
+.auth-field input:focus {
+  border-color: #6366f1;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 4px rgba(99, 102, 241, 0.11);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.auth-submit {
+  width: 100%;
+
+  height: 50px;
+
+  margin-top: 4px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #4f46e5
+    );
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px rgba(79, 70, 229, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+
+.auth-submit:hover {
+  transform: translateY(-1px);
+
+  filter: brightness(1.04);
+
+  box-shadow:
+    0 12px 25px rgba(79, 70, 229, 0.28);
+}
+
+
+.auth-submit:active {
+  transform: translateY(0);
+
+  box-shadow:
+    0 5px 12px rgba(79, 70, 229, 0.20);
+}
+
+
+.auth-submit:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   SWITCH LOGIN / REGISTER
+   ========================================================= */
+
+.auth-switch {
+  margin: 22px 0 0;
+
+  text-align: center;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+.auth-switch button {
+  border: none;
+
+  background: transparent;
+
+  padding: 0;
+
+  color: #4f46e5;
+
+  font-family: inherit;
+
+  font-size: inherit;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+
+.auth-switch button:hover {
+  color: #3730a3;
+
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   ERROR / INFO / SESSION MESSAGES
+   ========================================================= */
+
+.auth-error-message,
+.auth-info-message,
+.auth-session-message {
+  margin: 0 0 18px;
+
+  padding: 12px 14px;
+
+  border-radius: 11px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  border: 1px solid transparent;
+}
+
+
+.auth-error-message {
+  background: #fff1f2;
+
+  border-color: #fecdd3;
+
+  color: #be123c;
+}
+
+
+.auth-info-message {
+  background: #ecfdf5;
+
+  border-color: #a7f3d0;
+
+  color: #047857;
+}
+
+
+.auth-session-message {
+  background: #eff6ff;
+
+  border-color: #bfdbfe;
+
+  color: #1d4ed8;
+}
+
+
+/* =========================================================
+   REGISTER MODE
+   ========================================================= */
+
+.auth-card:has(.auth-switch button) {
+  /* Keeps both login and register screens consistent */
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .auth-screen {
+    padding: 20px;
+
+    align-items: center;
+  }
+
+  .auth-card {
+    max-width: 100%;
+
+    padding: 30px 24px 28px;
+
+    border-radius: 18px;
+  }
+
+  .auth-brand {
+    margin-bottom: 28px;
+  }
+
+  .auth-card h1 {
+    font-size: 28px;
+  }
+
+  .auth-field input {
+    height: 48px;
+  }
+
+  .auth-submit {
+    height: 48px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .auth-screen {
+    padding: 14px;
+  }
+
+  .auth-card {
+    padding: 26px 20px 24px;
+  }
+
+  .auth-brand-name {
+    font-size: 17px;
+  }
+
+  .auth-card h1 {
+    font-size: 26px;
+  }
+}
+
+/* =========================================================
+   CLOUDSYNC CUSTOMER CHAT POLISH
+   ========================================================= */
+
+/* Main chat background */
+
+.app {
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc 0%,
+      #f1f5f9 100%
+    );
+}
+
+
+/* Chat header */
+
+.chat-header {
+  background: rgba(255, 255, 255, 0.94);
+
+  border-bottom: 1px solid #e2e8f0;
+
+  box-shadow:
+    0 1px 8px rgba(15, 23, 42, 0.03);
+
+  backdrop-filter: blur(12px);
+}
+
+
+/* Online indicator */
+
+.online-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #059669;
+}
+
+
+.online-status::before {
+  content: "";
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #10b981;
+
+  box-shadow:
+    0 0 0 4px rgba(16, 185, 129, 0.10);
+}
+
+
+/* Chat messages area */
+
+.chat-messages {
+  padding-top: 32px;
+  padding-bottom: 140px;
+}
+
+
+/* User message */
+
+.user-message,
+.message-user {
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #4f46e5
+    ) !important;
+
+  color: #ffffff;
+
+  border-radius: 18px 18px 5px 18px;
+
+  box-shadow:
+    0 8px 20px rgba(79, 70, 229, 0.15);
+}
+
+
+/* AI message */
+
+.ai-message,
+.message-ai {
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 6px 18px 18px 18px;
+
+  box-shadow:
+    0 5px 18px rgba(15, 23, 42, 0.05);
+}
+
+
+/* AI avatar */
+
+.ai-avatar {
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #4f46e5
+    );
+
+  color: white;
+
+  box-shadow:
+    0 6px 14px rgba(79, 70, 229, 0.20);
+}
+
+
+/* Message text */
+
+.ai-message,
+.user-message {
+  line-height: 1.65;
+}
+
+
+/* Composer */
+
+.chat-input-container {
+  background: rgba(255, 255, 255, 0.96);
+
+  border: 1px solid #dbe2ea;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 12px 35px rgba(15, 23, 42, 0.08);
+
+  backdrop-filter: blur(12px);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.chat-input-container:focus-within {
+  border-color: #818cf8;
+
+  box-shadow:
+    0 0 0 4px rgba(99, 102, 241, 0.08),
+    0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+
+/* Input */
+
+.chat-input,
+.chat-input-container textarea,
+.chat-input-container input {
+  color: #0f172a;
+
+  font-size: 15px;
+}
+
+
+.chat-input::placeholder,
+.chat-input-container textarea::placeholder,
+.chat-input-container input::placeholder {
+  color: #94a3b8;
+}
+
+
+/* Send button */
+
+.send-button {
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #4f46e5
+    ) !important;
+
+  color: #ffffff !important;
+
+  border: none;
+
+  border-radius: 12px;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.send-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 18px rgba(79, 70, 229, 0.25);
+}
+
+
+.send-button:active {
+  transform: translateY(0);
+}
+
+
+/* Sidebar account logout */
+
+.cs-account-button.logout {
+  width: 100%;
+
+  justify-content: center;
+
+  color: #94a3b8;
+
+  border-radius: 10px;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.cs-account-button.logout:hover {
+  color: #fca5a5;
+
+  background: rgba(239, 68, 68, 0.08);
+}
+
+
+/* New conversation */
+
+.cs-new-chat {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.cs-new-chat:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 18px rgba(99, 102, 241, 0.12);
+}
+
+
+/* Admin navigation */
+
+.cs-nav-button {
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.cs-nav-button:hover {
+  transform: translateY(-1px);
+}
+
+
+/* Active conversation */
+
+.cs-history-item.active {
+  box-shadow:
+    inset 3px 0 0 #818cf8;
+}
+
+
+/* Mobile */
+
+@media (max-width: 900px) {
+
+  .chat-messages {
+    padding-top: 20px;
+    padding-bottom: 120px;
+  }
+
+  .chat-input-container {
+    border-radius: 14px;
+  }
+
+}
+
+/* =========================================================
+   MARKDOWN MESSAGE STYLING
+   ========================================================= */
+
+.markdown-message {
+  margin-top: 10px;
+  color: #172033;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.markdown-message p {
+  margin: 0 0 12px;
+}
+
+.markdown-message p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-message strong {
+  color: #111827;
+  font-weight: 700;
+}
+
+.markdown-message em {
+  font-style: italic;
+}
+
+.markdown-message code {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.9em;
+}
+
+.markdown-message h2,
+.markdown-message h3,
+.markdown-message h4 {
+  margin: 16px 0 8px;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.markdown-message h2 {
+  font-size: 21px;
+}
+
+.markdown-message h3 {
+  font-size: 18px;
+}
+
+.markdown-message h4 {
+  font-size: 16px;
+}
+
+.markdown-spacer {
+  height: 8px;
+}
+
+.markdown-bullet,
+.markdown-numbered {
+  display: flex;
+  gap: 9px;
+  margin: 6px 0;
+  line-height: 1.6;
+}
+
+.markdown-bullet-dot {
+  color: #6366f1;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.markdown-number {
+  color: #6366f1;
+  font-weight: 700;
+  min-width: 22px;
+  flex-shrink: 0;
+}
